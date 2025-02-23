@@ -1,0 +1,28 @@
+# Set working directory (adjust to where your file is)
+setwd("C:/Users/Alex/Desktop")
+
+# Read the original CSV file
+df_full <- read.csv("full.csv")
+
+# Filter the data for 'total_carriers' > 1
+df_filtered <- df_full[df_full$total_carriers > 1, ]
+
+# Write the filtered data into a new CSV file
+write.csv(df_filtered, "full_filtered.csv", row.names = FALSE)
+
+# Create a histogram of 'penetrance_cpvt' with color gradient and font size adjustments
+library(ggplot2)
+
+ggplot(df_filtered, aes(x = penetrance_cpvt)) +
+  geom_histogram(aes(fill = ..x..), binwidth = 0.05, color = "black", alpha = 0.7) +
+  labs(title = "Histogram of CPVT Penetrance Bayesian", 
+       x = "Observed Penetrance", 
+       y = "Unique RYR2 Variants") +
+  scale_x_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.25)) +  # X-axis from 0 to 1
+  scale_y_continuous(limits = c(0, 100)) +  # Adjust Y-axis limit
+  scale_fill_gradient(low = "#0000ff", high = "#ff0000") +  # Gradient from blue to red
+  theme_minimal() +
+  theme(
+    axis.text = element_text(family = "Arial", size = 18),  # Axis numbers with Arial, size 18
+    axis.title = element_text(family = "Arial", size = 24)  # Axis titles with Arial, size 24
+  )
