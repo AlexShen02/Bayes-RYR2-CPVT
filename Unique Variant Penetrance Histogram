@@ -5,7 +5,7 @@ setwd("C:/Users/Alex/Desktop")
 df_full <- read.csv("full.csv")
 
 # Filter the data for 'total_carriers' > 1
-df_filtered <- df_full[df_full$total_carriers > 1, ]
+df_filtered <- df_full[df_full$total_carriers >= 1, ]
 
 # Write the filtered data into a new CSV file
 write.csv(df_filtered, "full_filtered.csv", row.names = FALSE)
